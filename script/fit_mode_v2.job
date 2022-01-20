@@ -1,0 +1,24 @@
+#!/bin/sh -v
+#$ -cwd
+#$ -q smp.q
+#$ -pe openmp 16
+#$ -l cuda=2
+#$ -j y
+#$ -o output/
+#$ -M mt601@sussex.ac.uk
+#$ -m beas
+#$ -S /bin/bash
+
+module load Anaconda3/2020.02
+source activate myenv
+
+FILES="kaggle/ventilator/script/ventilator_LSTM.py
+"
+
+for f in $FILES
+do
+echo "Processing $f ..."
+python $f
+done
+
+echo "Complete"
